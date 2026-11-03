@@ -1,23 +1,60 @@
-function renderBooks() {
-  return `
-    <div class="book">
+function renderBooks(filter) {
+  const booksWrapper = document.querySelector('.books');
+
+  const books = getBooks();
+
+  if (filter === 'LOW_TO.HIGH') {
+    books.sort((a, b) => a.originalPrice - b.originalPrice);
+  }
+  else if (filter === 'HIGH_TO_LOW') {
+    books.sort((a, b) => b.originalPrice - a.originalPrice);
+  }
+
+  else if (filter === 'RATING') {
+    books.sort((a, b) => b.rating - a.rating);
+  }
+
+  const booksHTML = books.map((book) => {
+return `<div class="book">
       <figure class="book__img--wrapper">
-        <img src="assets/atomic habits.jpg" alt="Atomic Habits" class="book__img">
+        <img src="assets/atomic habits.jpg" alt="Atomic Habits" class="book__img" src="${book.url}">
       </figure>
-      <div class="book__title">Atomic Habits</div>
+      <div class="book__title">${book.title}</div>
       <div class="book__ratings">
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star-half-alt"></i>
+        ${ratingHTML(book.rating)}
       </div>
       <div class="book__price">
-        <span class="book__price--normal">$59.95</span> $14.95
-      </div>
-    </div>
-  `;
+        <span>$${book.originalPrice.toFixed(2)}</span>
+        </div>
+        </div>`;
+  })
+  .join("");
+  
+  booksWrapper.innerHTML = booksHTML;
 }
+
+function ratingsHTML(rating) {
+  for (let i = 0; i < Math.floor(rating); ++i) {
+    ratingHtml += '<i class="fa-solid fa-star"></i>';
+  }
+
+  if (!Number.isInteger(rating)) {
+    ratingHTML += '<i class="fa-solid fa-star-half-alt"></i>';
+  }
+  return ratingHTML;
+}
+
+function filterBooks(event) {
+renderBooks(event.target.value);
+}
+    
+    
+  
+  
+
+setTimeout(() => {
+  renderBooks();
+})
 
 // FAKE DATA
 function getBooks() {
