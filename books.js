@@ -3,7 +3,7 @@ function renderBooks(filter) {
 
   const books = getBooks();
 
-  if (filter === 'LOW_TO.HIGH') {
+  if (filter === 'LOW_TO_HIGH') {
     books.sort((a, b) => a.originalPrice - b.originalPrice);
   }
   else if (filter === 'HIGH_TO_LOW') {
@@ -17,7 +17,7 @@ function renderBooks(filter) {
   const booksHTML = books.map((book) => {
 return `<div class="book">
       <figure class="book__img--wrapper">
-        <img src="assets/atomic habits.jpg" alt="Atomic Habits" class="book__img" src="${book.url}">
+        <img src="${book.url}" alt="${book.title}" class="book__img" src="${book.url}">
       </figure>
       <div class="book__title">${book.title}</div>
       <div class="book__ratings">
@@ -34,14 +34,15 @@ return `<div class="book">
 }
 
 function ratingsHTML(rating) {
+  let ratingsHTML = "";
   for (let i = 0; i < Math.floor(rating); ++i) {
-    ratingHtml += '<i class="fa-solid fa-star"></i>';
+    ratingsHtml += '<i class="fa-solid fa-star"></i>';
   }
 
   if (!Number.isInteger(rating)) {
-    ratingHTML += '<i class="fa-solid fa-star-half-alt"></i>';
+    ratingsHTML += '<i class="fa-solid fa-star-half-alt"></i>';
   }
-  return ratingHTML;
+  return ratingsHTML;
 }
 
 function filterBooks(event) {
