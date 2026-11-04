@@ -21,7 +21,7 @@ return `<div class="book">
       </figure>
       <div class="book__title">${book.title}</div>
       <div class="book__ratings">
-        ${ratingHTML(book.rating)}
+        ${ratingsHTML(book.rating)}
       </div>
       <div class="book__price">
         <span>$${book.originalPrice.toFixed(2)}</span>
@@ -36,7 +36,7 @@ return `<div class="book">
 function ratingsHTML(rating) {
   let ratingsHTML = "";
   for (let i = 0; i < Math.floor(rating); ++i) {
-    ratingsHtml += '<i class="fa-solid fa-star"></i>';
+    ratingsHTML += '<i class="fa-solid fa-star"></i>';
   }
 
   if (!Number.isInteger(rating)) {
